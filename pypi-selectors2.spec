@@ -13,11 +13,11 @@ License  : MIT
 Requires: pypi-selectors2-python = %{version}-%{release}
 Requires: pypi-selectors2-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pluggy
+BuildRequires : pypi(pluggy)
 BuildRequires : py-python
 BuildRequires : pytest
 BuildRequires : tox
-BuildRequires : virtualenv
+BuildRequires : pypi(virtualenv)
 
 %description
 ==========

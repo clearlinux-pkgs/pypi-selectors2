@@ -4,23 +4,32 @@
 #
 Name     : pypi-selectors2
 Version  : 2.0.2
-Release  : 3
+Release  : 4
 URL      : https://files.pythonhosted.org/packages/86/72/27ccb21c1ff9fa87e1ba45e38045722b4eff345ba61760224793560638f4/selectors2-2.0.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/86/72/27ccb21c1ff9fa87e1ba45e38045722b4eff345ba61760224793560638f4/selectors2-2.0.2.tar.gz
 Summary  : Back-ported, durable, and portable selectors
 Group    : Development/Tools
 License  : MIT
+Requires: pypi-selectors2-license = %{version}-%{release}
 Requires: pypi-selectors2-python = %{version}-%{release}
 Requires: pypi-selectors2-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(pluggy)
-BuildRequires : py-python
-BuildRequires : pytest
-BuildRequires : tox
-BuildRequires : pypi(virtualenv)
+BuildRequires : pypi(py)
+BuildRequires : pypi-pluggy
+BuildRequires : pypi-pytest
+BuildRequires : pypi-tox
+BuildRequires : pypi-virtualenv
 
 %description
 ==========
+
+%package license
+Summary: license components for the pypi-selectors2 package.
+Group: Default
+
+%description license
+license components for the pypi-selectors2 package.
+
 
 %package python
 Summary: python components for the pypi-selectors2 package.
@@ -50,7 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639054126
+export SOURCE_DATE_EPOCH=1649700712
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -65,6 +74,8 @@ python3 setup.py build
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-selectors2
+cp %{_builddir}/selectors2-2.0.2/LICENSE %{buildroot}/usr/share/package-licenses/pypi-selectors2/c6d9c96ec3c8d23b0044792a060fa7fe6e607b9c
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -72,6 +83,10 @@ echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-selectors2/c6d9c96ec3c8d23b0044792a060fa7fe6e607b9c
 
 %files python
 %defattr(-,root,root,-)
